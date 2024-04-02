@@ -49,6 +49,7 @@ def new_game():
         [1,0,1,0,1,0,1,0,1,0]]
     c_bl,c_red = 20,20
     board()
+    label.config(text = 'Ход синих')
       
 
 def register(): #Регистрация пользователя
@@ -69,7 +70,7 @@ def register(): #Регистрация пользователя
         else:
             file.write(lg+' '+ps+' ')
         file.close()
-        messagebox.showinfo('www',message="Регистрация/авторизация прошла успешно!")
+        messagebox.showinfo(' ',message="Регистрация/авторизация прошла успешно!")
         txt.place_forget()
         txt0.place_forget()
         txt1.place_forget()
@@ -97,6 +98,7 @@ def win():
             new_game()
         else:
             sys.exit()
+        
 
 def board(): #Отрисовка доски
     global pole ,canvas   
@@ -961,10 +963,10 @@ def click(event):
                     if [y,x] in i:
                         if pole[i[0][0]][i[0][1]] == 1:
                             pole[i[0][0]][i[0][1]],pole[i[1][0]][i[1][1]],pole[y][x] = 0,0,1
+                            c_red -= 1
                         if pole[i[0][0]][i[0][1]] == 3:
                             pole[i[0][0]][i[0][1]],pole[i[1][0]][i[1][1]],pole[y][x] = 0,0,3
-                        c_red -= 1
-                        win()
+                            c_red -= 1
                         lst3 = []
                         l3 ,l2 = [],[]
                         proverka_bl()
@@ -1023,10 +1025,10 @@ def click(event):
                     if [y,x] in i:
                         if pole[i[0][0]][i[0][1]] == 2:
                             pole[i[0][0]][i[0][1]],pole[i[1][0]][i[1][1]],pole[i[2][0]][i[2][1]] = 0,0,2
+                            c_bl -= 1
                         if pole[i[0][0]][i[0][1]] == 4:
                             pole[i[0][0]][i[0][1]],pole[i[1][0]][i[1][1]],pole[y][x] = 0,0,4
-                        c_bl -= 1
-                        win()
+                            c_bl -= 1
                         lst3 = []
                         proverka_red()
                         if not vzatie_red:
@@ -1041,7 +1043,8 @@ def click(event):
                             else:
                                 label.config(text = 'Обязательное взятие синих')
     board()
-
+    win()
+    print(c_bl,c_red)
 txt0 = Label(root,text="Зарегестрируйтесь/авторизиуйтесь для игры",font=("Arial",15))   
 txt0.place(x=50,y=50) 
 txt = Label(root,text="Введите логин",font=("Arial",16))
